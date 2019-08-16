@@ -10,8 +10,7 @@ import java.util.Date;
 @TableName("ao_account")
 public class Account implements Serializable {
 
-    //自增ID
-    @TableId(type = IdType.AUTO)
+    //ID
     private Long id;
 
     //用户名

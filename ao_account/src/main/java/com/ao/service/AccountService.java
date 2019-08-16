@@ -1,11 +1,13 @@
 package com.ao.service;
 
 import com.ao.entity.Account;
+import com.ao.exception.AccountException;
 import com.ao.mapper.AccountMapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.springframework.dao.DuplicateKeyException;
+import entity.ResultEnum;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import util.IdWorker;
 
 import javax.annotation.Resource;
 
@@ -13,23 +15,31 @@ import javax.annotation.Resource;
 public class AccountService {
 
     @Resource
-    private AccountMapper accountMapper;
+    AccountMapper accountMapper;
 
     @Resource
     BCryptPasswordEncoder encoder;
 
-    public boolean register(Account account) throws DuplicateKeyException {
-        String encode = encoder.encode(account.getPasswd());
-        account.setPasswd(encode);
-        return accountMapper.insert(account) > 0;
-    }
+    @Resource
+    IdWorker idWorker;
 
-    public Account login(String acc, String passwd) {
-        Account account = accountMapper.selectOne(new QueryWrapper<Account>().eq("account", acc));
-        if (account != null && encoder.matches(passwd, account.getPasswd())) {
-            return account;
+    public Account login(Account account) {
+        Account login = accountMapper.selectOne(new QueryWrapper<Account>().eq("account", account.getAccount()));
+        if (login != null) {
+            if (encoder.matches(account.getPasswd(), login.getPasswd())) {
+                return login;
+            }else{
+                throw new AccountException(ResultEnum.FAILED.getMsg());
+            }
+        }else{
+            Account register = new Account();
+            register.setUsername(account.getUsername());
+            register.setPasswd(encoder.encode(account.getPasswd()));
+            register.setAccount(account.getAccount());
+            register.setId(idWorker.nextId());
+            accountMapper.insert(register);
+            return register;
         }
-        return null;
     }
 
 }

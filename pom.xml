@@ -21,6 +21,7 @@
     </parent>
 
     <properties>
+        <jjwt.version>0.6.0</jjwt.version>
         <jasypt.spring.version>2.1.0</jasypt.spring.version>
         <mybatis.plus.version>3.1.2</mybatis.plus.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,9 +1,9 @@
 package entity;
 
 public enum ResultEnum {
-    SUCCESS(1024,"成功"),
-    FAILED(1023,"失败"),
-    REGISTER_DUPLICATE(1022,"当前账号已被注册，请勿重复注册");
+    SUCCESS(1024, "成功"),
+    FAILED(1023, "失败"),
+    REGISTER_DUPLICATE(1022, "当前账号已被注册，请勿重复注册");
 
     private int code;
     private String msg;
@@ -28,4 +28,19 @@ public enum ResultEnum {
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
+    public static ResultEnum find(String msg) {
+        for (ResultEnum resultEnum : ResultEnum.values())
+            if (resultEnum.getMsg().equals(msg))
+                return resultEnum;
+        return null;
+    }
+
+    public static ResultEnum find(int code) {
+        for (ResultEnum resultEnum : ResultEnum.values())
+            if (code == resultEnum.getCode())
+                return resultEnum;
+        return null;
+    }
+
 }

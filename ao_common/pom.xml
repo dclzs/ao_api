@@ -11,5 +11,12 @@
 
     <artifactId>ao_common</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

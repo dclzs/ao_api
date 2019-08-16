@@ -14,3 +14,7 @@ logging:
 jasypt:
   encryptor:
     password: CcB3!qaKe0dKsvnO@we9gofkwJqTnnN$
+jwt:
+  config:
+    key: e9EP@ZKWr4Gs1rupqQbK*T#AX1tAni!h
+    ttl: 360000
