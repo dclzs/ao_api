@@ -5,6 +5,8 @@ import com.ao.exception.AccountException;
 import com.ao.mapper.AccountMapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import entity.ResultEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import util.IdWorker;
@@ -13,6 +15,9 @@ import javax.annotation.Resource;
 
 @Service
 public class AccountService {
+
+    /** Logger */
+    private Logger logger = LoggerFactory.getLogger(AccountService.class);
 
     @Resource
     AccountMapper accountMapper;
