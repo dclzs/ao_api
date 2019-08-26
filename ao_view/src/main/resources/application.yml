@@ -1,0 +1,20 @@
+server:
+  port: 9002
+spring:
+  application:
+    name: ao-view
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(ITkNrHuU1mOkVkXyppMFrcCUvzMB8MF69DoFKXadCVxawmZLvySkeZRv4Kt5EevZkzExqJaP3jy5R8vSRkM3CSWUHdOPE987YV/U/Bb+fSZdCjPTQ3GpTdzcgcPDXvSk8dgdfzup4qiZJndci3whGQ==)
+    username: ENC(U++GlKxheHW6hT5tKaTOwg==)
+    password: ENC(SViLmMMBBPPz7KG5MkjrOsloBJAFgDxU)
+logging:
+  level:
+    com.ao: debug
+jasypt:
+  encryptor:
+    password: xfC72$q!lqmL^t*gA9rtxFW88Y$rUHB9
+jwt:
+  config:
+    key: ENC(euc9Mn9+VNxKdNCi1dj0KSj7NaBjLfVdrXDvy3Lkf37UdnwCnSrA+EjF1+Wn6syM)
+#    ttl: jYXpUilfTDywpI1WY1M3jg==

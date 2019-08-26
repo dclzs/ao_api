@@ -16,5 +16,5 @@ jasypt:
     password: CcB3!qaKe0dKsvnO@we9gofkwJqTnnN$
 jwt:
   config:
-    key: e9EP@ZKWr4Gs1rupqQbK*T#AX1tAni!h
-    ttl: 1800000
+    key: ENC(rlmV6pvEktaNO4O4jTgQvtKfguzZ0ZCRw26oI5FetfafIevzEsarJOYh5bbQngqQ)
+    ttl: ENC(ahuBsvT97GqhaspLFD8wQA==)

@@ -11,6 +11,7 @@
     <modules>
         <module>ao_common</module>
         <module>ao_account</module>
+        <module>ao_view</module>
     </modules>
 
     <parent>
