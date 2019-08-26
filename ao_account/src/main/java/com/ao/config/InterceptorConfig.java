@@ -1,6 +1,6 @@
 package com.ao.config;
 
-import com.ao.filter.JwtFilter;
+import com.ao.interceptor.JwtInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -8,12 +8,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import javax.annotation.Resource;
 
 @Configuration
-public class ApplicationConfig extends WebMvcConfigurationSupport {
+public class InterceptorConfig extends WebMvcConfigurationSupport {
     @Resource
-    private JwtFilter jwtFilter;
+    private JwtInterceptor jwtInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(jwtFilter).
+        registry.addInterceptor(jwtInterceptor).
                 addPathPatterns("/**").
                 excludePathPatterns("/**/login");
     }

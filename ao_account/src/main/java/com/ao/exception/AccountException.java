@@ -1,10 +1,20 @@
 package com.ao.exception;
 
+import entity.ResultEnum;
 import exception.AoException;
 
 public class AccountException extends AoException {
 
+
     public AccountException() {
+    }
+
+    public AccountException(ResultEnum resultEnum, Throwable cause) {
+        super(resultEnum, cause);
+    }
+
+    public AccountException(ResultEnum resultEnum) {
+        super(resultEnum);
     }
 
     public AccountException(String message) {

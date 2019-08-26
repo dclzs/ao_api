@@ -1,10 +1,10 @@
-package com.ao.filter;
+package com.ao.interceptor;
 
 import com.ao.exception.AccountException;
+import com.feilong.core.Validator;
 import entity.Constanct;
 import entity.ResultEnum;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.SignatureException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -15,13 +15,15 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static util.ContextHolderUtils.getAuthorization;
+
 @Component
-public class JwtFilter extends HandlerInterceptorAdapter {
+public class JwtInterceptor extends HandlerInterceptorAdapter {
 
     /**
      * Logger
      */
-    private Logger logger = LoggerFactory.getLogger(JwtFilter.class);
+    private Logger logger = LoggerFactory.getLogger(JwtInterceptor.class);
 
     @Resource
     private JwtUtil jwtUtil;
@@ -31,23 +33,21 @@ public class JwtFilter extends HandlerInterceptorAdapter {
                              HttpServletResponse response, Object handler)
             throws AccountException {
         try {
-            String token = request.getHeader(Constanct.HEAD_AUTHORIZATION);
-            if (token != null && !"".equals(token)) {
+            String token = getAuthorization();
+            if (Validator.isNotNullOrEmpty(token)) {
                 Claims claims = jwtUtil.parseJWT(token);
-                if (claims != null) {
+                if (Validator.isNotNullOrEmpty(claims)) {
                     String newToken = jwtUtil.createJWT(
                             claims.getId(),
                             claims.getSubject(),
                             Constanct.ACCOUNT_CLAIMS);
-                    response.setHeader("token", newToken);
+                    response.setHeader(Constanct.TOKEN, Constanct.TOKEN_PREFIX + newToken);
                     return Constanct.ACCOUNT_CLAIMS.equals(claims.get(Constanct.ROLES));
                 }
             }
-        } catch (SignatureException e) {
-            e.printStackTrace();
-            logger.error("================{}=============", e.getMessage());
-            throw new AccountException(ResultEnum.TOKEN_ERROR.getMsg());
+        } catch (Exception e) {
+            throw new AccountException(ResultEnum.TOKEN_ERROR, e);
         }
-        throw new AccountException(ResultEnum.FAILED.getMsg());
+        throw new AccountException(ResultEnum.FAILED);
     }
 }

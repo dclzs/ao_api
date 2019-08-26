@@ -17,4 +17,4 @@ jasypt:
 jwt:
   config:
     key: e9EP@ZKWr4Gs1rupqQbK*T#AX1tAni!h
-    ttl: 360000
+    ttl: 1800000

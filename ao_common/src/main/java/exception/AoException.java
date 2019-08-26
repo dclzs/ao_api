@@ -1,8 +1,26 @@
 package exception;
 
+import entity.ResultEnum;
+
 public class AoException extends RuntimeException {
 
+    private ResultEnum resultEnum;
+
     public AoException() {
+    }
+
+    public ResultEnum getResultEnum() {
+        return resultEnum;
+    }
+
+    public AoException(ResultEnum resultEnum) {
+        this.resultEnum = resultEnum;
+    }
+
+    public AoException(ResultEnum resultEnum, Throwable cause) {
+        super(cause.getMessage());
+        this.setStackTrace(cause.getStackTrace());
+        this.resultEnum = resultEnum;
     }
 
     public AoException(String message) {

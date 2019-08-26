@@ -2,18 +2,15 @@ package com.ao.controller;
 
 import com.ao.entity.Account;
 import com.ao.service.AccountService;
+import com.feilong.core.Validator;
+import com.feilong.core.bean.ConvertUtil;
 import entity.Constanct;
 import entity.Result;
 import entity.ResultEnum;
-import io.jsonwebtoken.Claims;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import util.JwtUtil;
-import util.MapUtil;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("account")
@@ -25,9 +22,9 @@ public class AccountController {
     @Resource
     private JwtUtil jwtUtil;
 
-    @RequestMapping("login")
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public Result login(@RequestBody Account account) {
-        if(account.getUsername()==null){
+        if (Validator.isNullOrEmpty(account.getUsername())) {
             account.setUsername(account.getAccount());
         }
         Account login = accountService.login(account);
@@ -37,9 +34,14 @@ public class AccountController {
                 Constanct.ACCOUNT_CLAIMS);
         return new Result(
                 ResultEnum.SUCCESS,
-                MapUtil.createMap(
-                new String[]{"token","name"},
-                new Object[]{token,login.getUsername()}));
+                ConvertUtil.toMap("token", Constanct.TOKEN_PREFIX + token, "name", login.getUsername()));
+    }
+
+    @RequestMapping(value = "/{username}", method = RequestMethod.PUT)
+    public Result alterUserName(@PathVariable("username") String username) {
+        return accountService.AlterUserName(jwtUtil.getAccountId(), username) ?
+                new Result(ResultEnum.SUCCESS) :
+                new Result(ResultEnum.FAILED);
     }
 
 }

@@ -15,7 +15,7 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>${jjwt.version}</version>
+            <version>${version.jjwt}</version>
         </dependency>
     </dependencies>
 

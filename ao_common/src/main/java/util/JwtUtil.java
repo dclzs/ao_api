@@ -9,6 +9,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.Date;
 
+import static util.ContextHolderUtils.getAuthorization;
+
 /**
  * Created by Administrator on 2018/4/11.
  */
@@ -50,7 +52,7 @@ public class JwtUtil {
                 .setIssuedAt(now)
                 .signWith(SignatureAlgorithm.HS256, key).claim(Constanct.ROLES, roles);
         if (ttl > 0) {
-            builder.setExpiration( new Date( nowMillis + ttl));
+            builder.setExpiration(new Date( nowMillis + ttl));
         }
         return builder.compact();
     }
@@ -67,4 +69,12 @@ public class JwtUtil {
                 .getBody();
     }
 
+    /**
+     * 获取 account 中的id
+     * @return
+     */
+    public Long getAccountId(){
+        Claims claims = parseJWT(getAuthorization());
+        return Long.valueOf(claims.getId());
+    }
 }
