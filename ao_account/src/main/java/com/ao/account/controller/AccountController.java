@@ -34,7 +34,7 @@ public class AccountController {
                 Constanct.ACCOUNT_CLAIMS);
         return new Result(
                 ResultEnum.SUCCESS,
-                ConvertUtil.toMap("token", Constanct.TOKEN_PREFIX + token, "name", login.getUsername()));
+                ConvertUtil.toMap(Constanct.TOKEN, Constanct.TOKEN_PREFIX + token, "name", login.getUsername()));
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.PUT)

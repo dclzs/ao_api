@@ -74,4 +74,16 @@ public class Account implements Serializable {
     public void setTsp(Date tsp) {
         this.tsp = tsp;
     }
+
+
+    public static final class Field{
+        public static final String TABLE_NAME = "ao_account";
+        public static final String ACCOUNT = "account";
+        public static final String ID = "id";
+        public static final String USERNAME = "username";
+        public static final String PASSWD = "passwd";
+        public static final String STATUS = "status";
+        public static final String TSP = "tsp";
+    }
+
 }
