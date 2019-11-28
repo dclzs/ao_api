@@ -1,6 +1,5 @@
 package com.ao.account.interceptor;
 
-import com.feilong.core.Validator;
 import com.ao.common.entity.Constanct;
 import com.ao.common.entity.ResultEnum;
 import com.ao.common.exception.AccountException;
@@ -14,6 +13,8 @@ import com.ao.common.util.JwtUtil;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.util.Objects;
 
 import static com.ao.common.util.ContextHolderUtils.getAuthorization;
 
@@ -34,9 +35,9 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
             throws AccountException {
         try {
             String token = getAuthorization();
-            if (Validator.isNotNullOrEmpty(token)) {
+            if (Objects.nonNull(token)) {
                 Claims claims = jwtUtil.parseJWT(token);
-                if (Validator.isNotNullOrEmpty(claims)) {
+                if (Objects.nonNull(claims)) {
                     String newToken = jwtUtil.createJWT(
                             claims.getId(),
                             claims.getSubject(),

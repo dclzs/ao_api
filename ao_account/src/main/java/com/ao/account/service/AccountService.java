@@ -3,7 +3,6 @@ package com.ao.account.service;
 import com.ao.account.entity.Account;
 import com.ao.account.mapper.AccountMapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.feilong.core.Validator;
 import com.ao.common.entity.ResultEnum;
 import com.ao.common.exception.AccountException;
 import org.slf4j.Logger;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.ao.common.util.IdWorker;
 
 import javax.annotation.Resource;
+import java.util.Objects;
 
 @Service
 public class AccountService {
@@ -33,7 +33,7 @@ public class AccountService {
 
     public Account login(Account account) {
         Account login = accountMapper.selectOne(new QueryWrapper<Account>().eq("account", account.getAccount()));
-        if (Validator.isNotNullOrEmpty(login)) {
+        if (Objects.nonNull(login)) {
             if (encoder.matches(account.getPasswd(), login.getPasswd())) {
                 return login;
             }
