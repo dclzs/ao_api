@@ -30,7 +30,7 @@
         <verion.commons-beanutils>1.9.3</verion.commons-beanutils>
         <verion.commons-collections4>4.1</verion.commons-collections4>
         <version.commons-lang3>3.6</version.commons-lang3>
-        <version.fastjson>1.2.58</version.fastjson>
+        <version.fastjson>1.2.83</version.fastjson>
         <java.version>1.8</java.version>
     </properties>
 
